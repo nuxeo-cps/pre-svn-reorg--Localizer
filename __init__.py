@@ -1,3 +1,5 @@
+# -*- coding: iso-8859-15 -*-
+
 # Copyright (C) 2000-2002  Juan David Ibáñez Palomar <j-david@noos.fr>
 
 # This program is free software; you can redistribute it and/or

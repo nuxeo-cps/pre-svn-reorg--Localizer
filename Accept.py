@@ -1,3 +1,5 @@
+# -*- coding: iso-8859-15 -*-
+
 # Localizer, Zope product that provides internationalization services
 # Copyright (C) 2001-2002 J. David Ibáñez <j-david@noos.fr>
 

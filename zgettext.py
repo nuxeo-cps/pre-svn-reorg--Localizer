@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: iso-8859-15 -*-
 
 # Localizer, Zope product that provides internationalization services
 # Copyright (C) 2001 Andrés Marzal Varo
