@@ -158,9 +158,9 @@ if patch_251:
 
     from Products.PageTemplates.TALES import Context, Default
 
-    def evaluateText(self, expr, None=None):
+    def evaluateText(self, expr, _None=None):
         text = self.evaluate(expr)
-        if text is Default or text is None:
+        if text is Default or text is _None:
             return text
         return ustr(text) # Use "ustr" instead of "str"
     Context.evaluateText = evaluateText
