@@ -1,0 +1,81 @@
+<dtml-var manage_page_header>
+<dtml-var manage_tabs>
+
+<p class="form-help">
+  <dtml-gettext>
+    To add a language select it and click the <tt>Add</tt> button.
+  </dtml-gettext>
+</p>
+
+<blockquote>
+  <form action="manage_addLanguage" method="post">
+    <table>
+      <tr>
+        <td>
+          <select name="language">
+            <dtml-in get_all_languages>
+              <option value="<dtml-var sequence-key>">
+                <dtml-var "gettext(_['sequence-item'])"></option>
+            </dtml-in>
+          </select>
+          <input type="submit" value=" <dtml-var "gettext('Add')"> ">
+        </td>
+      </tr>
+    </table>
+  </form>
+</blockquote>
+
+
+<dtml-let languages=get_languages_tuple>
+  <dtml-if languages>
+    <p class="form-help">
+      <dtml-gettext>
+        To delete a language check it and click the <tt>Delete</tt> button.
+        To change the default language select it and click the
+        <tt>Change</tt> button.
+      </dtml-gettext>
+    </p>
+
+    <blockquote>
+      <form action="<dtml-var URL1>" method="post">
+        <table>
+          <tr>
+            <th></th>
+            <th align="left"></th>
+            <th><dtml-var "gettext('Default')"></th>
+          </tr>
+          <dtml-in get_languages_tuple>
+            <dtml-let id=sequence-key
+                      title=sequence-item>
+              <tr>
+                <td><input type="checkbox" name="languages:tuple"
+                           value="<dtml-var id>"></td>
+                <td><dtml-var "gettext(title)"> [<dtml-var id>]</td>
+                <td align="center">
+                  <input type="radio" name="language" value="<dtml-var id>"
+                         <dtml-if "default_language(id)">checked</dtml-if>>
+                </td>
+              </tr>
+            </dtml-let>
+          </dtml-in>
+          <tr>
+            <td></td>
+            <td>
+              <input type="submit" name="manage_delLanguages:method"
+                     value=" <dtml-var "gettext('Delete')"> ">
+            </td>
+            <td>
+              <input type="submit" name="manage_changeDefaultLang:method"
+                     value=" <dtml-var "gettext('Change')"> ">
+            </td>
+          </tr>
+        </table>
+      </form>
+    </blockquote>
+  <dtml-else>
+    <em><dtml-gettext>There aren't languages</dtml-gettext></em>
+  </dtml-if>
+</dtml-let>
+
+
+<dtml-var manage_page_footer>

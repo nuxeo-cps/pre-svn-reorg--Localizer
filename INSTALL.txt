@@ -1,0 +1,16 @@
+
+Just unpack the product in the Products directory.
+
+Python 2.1 or later is required.
+
+It's required to have:
+
+ - Zope 2.6 or later
+
+ - or Zope 2.5.1 + Florent Guillaume's version of Toby Dickenson's patch:
+
+   http://www.zope.org/Members/efge/i18n/Unicode-2.5.1
+
+ - or Zope 2.3.2 + Toby Dickenson's patch for Unicode:
+
+   http://www.zope.org/Members/htrd/wstring

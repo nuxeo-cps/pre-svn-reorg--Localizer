@@ -1,0 +1,85 @@
+<dtml-var manage_page_header>
+<dtml-var manage_tabs>
+
+<p class="form-help">
+  <dtml-gettext>
+    You can export the messages and their translations to PO files. Check
+    <tt>locale.pot</tt> to get only the messages, without their translations.
+    Check any other option to get a PO file with the messages and their
+    translations to the selected language. Then click the <tt>Export</tt>
+    button.
+  </dtml-gettext>
+</p>
+
+<blockquote>
+<form action="manage_export" method="post">
+  <table>
+    <tr>
+      <th align="left">
+        <dtml-var "gettext('File / Language')">
+      </th>
+    </tr>
+    <tr>
+      <td valign="top">
+        <input type="radio" name="x" value="locale.pot" checked>
+        locale.pot
+        <br>
+        <dtml-in get_languages_tuple>
+          <dtml-let id=sequence-key
+                    title=sequence-item>
+            <input type="radio" name="x" value="<dtml-var id>">
+            <dtml-var id>.po / <dtml-var "gettext(title)">
+            <br>
+          </dtml-let>
+        </dtml-in>
+      </td>
+    </tr>
+    <tr>
+      <td><input type="submit" value=" <dtml-var "gettext('Export')"> "></td>
+      <td></td>
+    </tr>
+  </table>
+</form>
+</blockquote>
+
+
+<p class="form-help">
+  <dtml-gettext>
+    You can add new messages and translations importing a PO file. Enter the
+    filename, select the language of the translations and click the
+    <tt>Import</tt> button.
+  </dtml-gettext>
+</p>
+
+
+<blockquote>
+<form action="manage_import" method="post" enctype="multipart/form-data">
+  <table>
+    <tr>
+      <th align="right"><dtml-var "gettext('File')"></th>
+      <td><input type="file" name="file"></td>
+    </tr>
+    <tr>
+      <th align="right" valign="top"><dtml-var "gettext('Language')"></th>
+      <td>
+        <dtml-in get_languages_tuple>
+          <dtml-let id=sequence-key
+                    title=sequence-item>
+            <input type="radio" name="lang" value="<dtml-var id>"
+                   <dtml-if sequence-start>checked</dtml-if>>
+            <dtml-var "gettext(title)">
+            <br>
+          </dtml-let>
+        </dtml-in>
+      </td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><input type="submit" value=" <dtml-var "gettext('Import')"> "></td>
+    </tr>
+  </table>
+</form>
+</blockquote>
+
+
+<dtml-var manage_page_footer>
