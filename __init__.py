@@ -136,63 +136,16 @@ if patch:
 # PATCH 3
 #
 # Enables support of Unicode in ZPT.
-# For Zope 2.5.1 (unsupported), patch appropriately.
-# For Zope 2.6b1+
 #   - if LOCALIZER_USE_ZOPE_UNICODE, use standard Zope Unicode handling,
 #   - otherwise use Localizer's version of StringIO for ZPT and TAL.
 #
 
-from TAL.TALInterpreter import TALInterpreter
-patch_251 = not hasattr(TALInterpreter, 'StringIO')
-
-if patch_251:
-    try:
-        # Patched 2.5.1 should have ustr in __builtins__
-        ustr
-    except NameError:
-        LOG('Localizer', ERROR, (
-            "A Unicode-aware version of Zope is needed by Localizer.\n"
-            "Please consult the documentation for a patched version\n"
-            "of Zope 2.5.1, or use Zope 2.6b1 or later."))
-        raise
-
-    # 3.1 - Fix two instances where ustr must be used
-
-    from Products.PageTemplates.TALES import Context, Default
-
-    def evaluateText(self, expr, _None=None):
-        text = self.evaluate(expr)
-        if text is Default or text is _None:
-            return text
-        return ustr(text) # Use "ustr" instead of "str"
-    Context.evaluateText = evaluateText
-
-    def do_insertStructure_tal(self, (expr, repldict, block)):
-        structure = self.engine.evaluateStructure(expr)
-        if structure is None:
-            return
-        if structure is self.Default:
-            self.interpret(block)
-            return
-        text = ustr(structure)  # Use "ustr" instead of "str"
-        if not (repldict or self.strictinsert):
-            # Take a shortcut, no error checking
-            self.stream_write(text)
-            return
-        if self.html:
-            self.insertHTMLStructure(text, repldict)
-        else:
-            self.insertXMLStructure(text, repldict)
-    TALInterpreter.do_insertStructure_tal = do_insertStructure_tal
-    TALInterpreter.bytecode_handlers_tal["insertStructure"] = do_insertStructure_tal
-
-# 3.2 - Fix uses of StringIO with a Unicode-aware StringIO
+# Fix uses of StringIO with a Unicode-aware StringIO
 
 from StringIO import StringIO as originalStringIO
-from types import UnicodeType
 class LocalizerStringIO(originalStringIO):
     def write(self, s):
-        if isinstance(s, UnicodeType):
+        if isinstance(s, unicode):
             try:
                 response = get_request().RESPONSE
                 s = response._encode_unicode(s)
@@ -201,80 +154,20 @@ class LocalizerStringIO(originalStringIO):
                 pass
         originalStringIO.write(self, s)
 
-
-
 from Products.PageTemplates.PageTemplate import PageTemplate
+from TAL.TALInterpreter import TALInterpreter
+import os
 
-
-if not patch_251:
-    import os
-    if os.environ.get('LOCALIZER_USE_ZOPE_UNICODE'):
-        LOG('Localizer', DEBUG, 'No Unicode patching')
-        # Use the standard Zope way of dealing with Unicode
-    else:
-        LOG('Localizer', DEBUG, 'Unicode patching for Zope 2.6b1+')
-        # Patch the StringIO method of TALInterpreter and PageTemplate
-        def patchedStringIO(self):
-            return LocalizerStringIO()
-        TALInterpreter.StringIO = patchedStringIO
-        PageTemplate.StringIO = patchedStringIO
-
+if os.environ.get('LOCALIZER_USE_ZOPE_UNICODE'):
+    LOG('Localizer', DEBUG, 'No Unicode patching')
+    # Use the standard Zope way of dealing with Unicode
 else:
-    LOG('Localizer', DEBUG, 'Unicode patching for Zope 2.5.1')
-    # Patch uses of StringIO in Zope 2.5.1
-    def no_tag(self, start, program):
-        state = self.saveState()
-        self.stream = stream = LocalizerStringIO()
-        self._stream_write = stream.write
-        self.interpret(start)
-        self.restoreOutputState(state)
-        self.interpret(program)
-    TALInterpreter.no_tag = no_tag
-
-    def do_onError_tal(self, (block, handler)):
-        state = self.saveState()
-        self.stream = stream = LocalizerStringIO()
-        self._stream_write = stream.write
-        try:
-            self.interpret(block)
-        except self.TALESError, err:
-            self.restoreState(state)
-            engine = self.engine
-            engine.beginScope()
-            err.lineno, err.offset = self.position
-            engine.setLocal('error', err)
-            try:
-                self.interpret(handler)
-            finally:
-                err.takeTraceback()
-                engine.endScope()
-        else:
-            self.restoreOutputState(state)
-            self.stream_write(stream.getvalue())
-    TALInterpreter.do_onError_tal = do_onError_tal
-
-    from Products.PageTemplates.PageTemplate import PTRuntimeError
-    from Products.PageTemplates.PageTemplate import Z_DEBUG_MODE
-    from Products.PageTemplates.PageTemplate import getEngine
-    import pprint
-    def pt_render(self, source=0, extra_context={}):
-        """Render this Page Template"""
-        if self._v_errors:
-            raise PTRuntimeError, 'Page Template %s has errors.' % self.id
-        output = LocalizerStringIO()
-        c = self.pt_getContext()
-        c.update(extra_context)
-        if Z_DEBUG_MODE:
-            __traceback_info__ = pprint.pformat(c)
-
-        TALInterpreter(self._v_program, self._v_macros,
-                       getEngine().getContext(c),
-                       output,
-                       tal=not source, strictinsert=0)()
-        return output.getvalue()
-    PageTemplate.pt_render = pt_render
-
-del patch_251
+    LOG('Localizer', DEBUG, 'Unicode patching')
+    # Patch the StringIO method of TALInterpreter and PageTemplate
+    def patchedStringIO(self):
+        return LocalizerStringIO()
+    TALInterpreter.StringIO = patchedStringIO
+    PageTemplate.StringIO = patchedStringIO
 
 #################################################################
 # Standard intialization code

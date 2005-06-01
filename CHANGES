@@ -1,6 +1,6 @@
 Requires:
 ~~~~~~~~~
--
+- Zope 2.5 is now unsupported.
 New features:
 ~~~~~~~~~~~~~
 -
