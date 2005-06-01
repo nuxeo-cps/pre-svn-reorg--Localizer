@@ -193,8 +193,8 @@ from types import UnicodeType
 class LocalizerStringIO(originalStringIO):
     def write(self, s):
         if isinstance(s, UnicodeType):
-            response = get_request().RESPONSE
             try:
+                response = get_request().RESPONSE
                 s = response._encode_unicode(s)
             except AttributeError:
                 # not an HTTPResponse
