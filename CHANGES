@@ -1,6 +1,6 @@
 Requires:
 ~~~~~~~~~
-- Zope 2.5 is now unsupported.
+-
 New features:
 ~~~~~~~~~~~~~
 -
@@ -9,5 +9,4 @@ Bug fixes:
 -
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
-- Fixed to work when used with some unit tests that don't have a proper
-  request (CMFCore.tests.test_FSPageTemplate.FSPageTemplateTests).
+-

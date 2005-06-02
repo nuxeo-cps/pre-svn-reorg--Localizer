@@ -1,1 +1,18 @@
+*******************************************
+** Localizer V1.0.2 [R1 build 2005/06/02-09:37 by fguillaume]
+** SVN URL: https://svn.nuxeo.org/pub/Localizer/trunk Revision: 22058
+Requires:
+~~~~~~~~~
+- Zope 2.5 is now unsupported.
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+-
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- Fixed to work when used with some unit tests that don't have a proper
+  request (CMFCore.tests.test_FSPageTemplate.FSPageTemplateTests).
+
 use nuxeo packaging
