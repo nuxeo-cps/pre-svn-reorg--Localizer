@@ -61,13 +61,9 @@ def new_publish(request, module_name, after_list, debug=0):
     try:
         del Publish._requests[id]
     except KeyError:
-        # XXX
-        # Some people has reported that sometimes a KeyError exception is
-        # raised in the previous line, I haven't been able to reproduce it.
-        # This try/except clause seems to work. I'd prefer to understand
-        # what is happening.
-        LOG('Localizer', PROBLEM,
-            "The thread number %s don't has a request object associated." % id)
+        # When a ConflictError happened, the recursive call to publish
+        # implies that _requests has already been cleared
+        pass
 
     return x
 
