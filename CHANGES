@@ -6,7 +6,8 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
--
+- Fix for Zope 2.8
+- Remove useless error message on ConflictError.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
