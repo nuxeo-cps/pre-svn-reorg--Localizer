@@ -1,4 +1,21 @@
 *******************************************
+** Localizer V1.0.3 [R1 build 2005/08/05-15:44 by fguillaume]
+** SVN URL: https://svn.nuxeo.org/pub/Localizer/trunk Revision: 25577
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- Fix for Zope 2.8
+- Remove useless error message on ConflictError.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
 ** Localizer V1.0.2 [R1 build 2005/06/02-09:37 by fguillaume]
 ** SVN URL: https://svn.nuxeo.org/pub/Localizer/trunk Revision: 22058
 Requires:
