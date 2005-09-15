@@ -6,7 +6,7 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
--
+- If there is no request, the language negotiator now fails gracefully.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
