@@ -55,6 +55,9 @@ def lang_negotiator(available_languages):
     """
 
     request = get_request()
+    if request is None:
+        # Happens sometimes during unit tests
+        return None
 
     lang = request.AcceptLanguage.select_language(available_languages)
 
