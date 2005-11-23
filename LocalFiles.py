@@ -57,8 +57,13 @@ def get_translations(localedir, language=None):
             lang = filename[:-3]
             filename = os.path.join(locale, filename)
             f = open(filename, 'rb')
-            translations[locale][lang] = GNUTranslations(f)
-            f.close()
+            try:
+                try:
+                    translations[locale][lang] = GNUTranslations(f)
+                except ValueError:
+                    raise ValueError('GNUTranslations could not unpack %s' % f)
+            finally:
+                f.close()
 
     # Get the translations to use
     ptranslations = translations[locale]
