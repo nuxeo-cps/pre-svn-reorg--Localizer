@@ -61,7 +61,8 @@ def get_translations(localedir, language=None):
                 try:
                     translations[locale][lang] = GNUTranslations(f)
                 except ValueError:
-                    raise ValueError('GNUTranslations could not unpack %s' % f)
+                    raise ValueError('GNUTranslations could not unpack %s' \
+                                     % filename)
             finally:
                 f.close()
 
