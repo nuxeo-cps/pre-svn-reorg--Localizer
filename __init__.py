@@ -169,7 +169,7 @@ else:
 # Standard intialization code
 #################################################################
 
-from ImageFile import ImageFile
+from App.ImageFile import ImageFile
 from DocumentTemplate.DT_String import String
 import ZClasses
 
