@@ -35,6 +35,8 @@ from Globals import  MessageDialog, PersistentMapping, InitializeClass, \
 from AccessControl import ClassSecurityInfo
 from OFS.SimpleItem import SimpleItem
 from OFS.ObjectManager import ObjectManager
+from zope.interface import implements
+from Products.Localizer.interfaces import IMessageCatalog
 
 # Localizer
 from LocalFiles import LocalDTMLFile
@@ -72,12 +74,14 @@ class MessageCatalog(LanguageManager, ObjectManager, SimpleItem):
     Stores messages and their translations...
     """
 
+    implements(IMessageCatalog)
+
     meta_type = 'MessageCatalog'
 
     security = ClassSecurityInfo()
 
 
-    def __init__(self, id, title, languages):
+    def __init__(self, id, title='', languages=('en',)):
         self.id = id
 
         self.title = title

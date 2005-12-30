@@ -1,0 +1,28 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five">
+
+  <adapter
+      factory=".exportimport.LocalizerToolXMLAdapter"
+      provides="Products.GenericSetup.interfaces.IBody"
+      for="Products.Localizer.interfaces.ILocalizerTool
+           Products.GenericSetup.interfaces.ISetupEnviron"
+      />
+
+  <adapter
+      factory=".exportimport.MessageCatalogXMLAdapter"
+      provides="Products.GenericSetup.interfaces.IBody"
+      for="Products.Localizer.interfaces.IMessageCatalog
+           Products.GenericSetup.interfaces.ISetupEnviron"
+      />
+
+  <five:registerClass
+      class=".MessageCatalog.MessageCatalog"
+      meta_type="MessageCatalog"
+      addview=""
+      permission="cmf.ManagePortal"
+      global="False"
+      />
+
+</configure>

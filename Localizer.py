@@ -32,6 +32,8 @@ from OFS.Folder import Folder
 from ZPublisher.BeforeTraverse import registerBeforeTraverse, \
      unregisterBeforeTraverse, queryBeforeTraverse, NameCaller
 from zLOG import LOG, ERROR, INFO, PROBLEM
+from zope.interface import implements
+from Products.Localizer.interfaces import ILocalizerTool
 
 # Localizer
 from LocalFiles import LocalDTMLFile
@@ -39,7 +41,6 @@ from MessageCatalog import MessageCatalog
 from Utils import get_language_name, lang_negotiator
 from LanguageManager import LanguageManager
 import Gettext
-
 
 _ = Gettext.translation(globals())
 N_ = Gettext.dummy
@@ -63,6 +64,8 @@ class Localizer(LanguageManager, Folder):
     The Localizer meta type lets to customize the language negotiation
     policy.
     """
+
+    implements(ILocalizerTool)
 
     meta_type = 'Localizer'
 
@@ -98,7 +101,7 @@ class Localizer(LanguageManager, Folder):
         return r
 
 
-    def __init__(self, title, languages):
+    def __init__(self, title='', languages=('en',)):
         self.title = title
 
         self._languages = languages
