@@ -6,14 +6,14 @@
   <adapter
       factory=".exportimport.LocalizerToolXMLAdapter"
       provides="Products.GenericSetup.interfaces.IBody"
-      for="Products.Localizer.interfaces.ILocalizerTool
+      for=".interfaces.ILocalizerTool
            Products.GenericSetup.interfaces.ISetupEnviron"
       />
 
   <adapter
       factory=".exportimport.MessageCatalogXMLAdapter"
       provides="Products.GenericSetup.interfaces.IBody"
-      for="Products.Localizer.interfaces.IMessageCatalog
+      for=".interfaces.IMessageCatalog
            Products.GenericSetup.interfaces.ISetupEnviron"
       />
 
