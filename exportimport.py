@@ -82,7 +82,8 @@ class LocalizerToolXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
 
         self._initObjects(node)
 
-        self._logger.info("Localizer tool imported.")
+        self._logger.info("Localizer tool imported (%s).",
+                          ', '.join(languages))
 
 
 class MessageCatalogXMLAdapter(XMLAdapterBase, PropertyManagerHelpers):
