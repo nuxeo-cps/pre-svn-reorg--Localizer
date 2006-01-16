@@ -133,12 +133,8 @@ class MessageCatalogXMLAdapter(XMLAdapterBase, PropertyManagerHelpers):
                     continue
                 if not language in catalog.get_languages():
                     catalog.manage_addLanguage(language)
-                try:
-                    catalog.manage_import(language, file)
-                # Yes, Localizer still uses old-school exceptions
-                except 'ParseError':
-                    print "Parse error in file %s" % file
-                    raise
+                __traceback_info__ = language, file
+                catalog.manage_import(language, file)
 
     def _getPOFile(self, product, filename, language):
         filename = filename % language
