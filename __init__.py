@@ -138,8 +138,8 @@ if patch:
 
 # Fix uses of StringIO with a Unicode-aware StringIO
 
-from StringIO import StringIO as originalStringIO
-class LocalizerStringIO(originalStringIO):
+from TAL.TALInterpreter import FasterStringIO
+class LocalizerStringIO(FasterStringIO):
     def write(self, s):
         if isinstance(s, unicode):
             try:
@@ -148,7 +148,7 @@ class LocalizerStringIO(originalStringIO):
             except AttributeError:
                 # not an HTTPResponse
                 pass
-        originalStringIO.write(self, s)
+        FasterStringIO.write(self, s)
 
 from Products.PageTemplates.PageTemplate import PageTemplate
 from TAL.TALInterpreter import TALInterpreter
