@@ -6,7 +6,7 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
--
+- Use FasterStringIO instead of StringIO in PageTemplate monkey-patch.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
