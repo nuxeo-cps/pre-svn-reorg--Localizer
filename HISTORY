@@ -1,4 +1,20 @@
 *******************************************
+** Localizer V1.1.1 [R1 build 2006/02/17-20:33 by fermigier]
+** SVN URL: https://svn.nuxeo.org/pub/Localizer/trunk Revision: 32986
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- Use FasterStringIO instead of StringIO in PageTemplate monkey-patch.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
 ** Localizer V1.1.0 [R1 build 2006/01/23-17:37 by fermigier]
 ** SVN URL: https://svn.nuxeo.org/pub/Localizer/trunk Revision: 31976
 Requires:
