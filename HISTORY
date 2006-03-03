@@ -1,4 +1,20 @@
 *******************************************
+** Localizer V1.2.0 [R1 build 2006/03/03-17:52 by ben]
+** SVN URL: https://svn.nuxeo.org/pub/Localizer/trunk Revision: 33914
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+-
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- update po
+
+*******************************************
 ** Localizer V1.1.1 [R1 build 2006/02/17-20:33 by fermigier]
 ** SVN URL: https://svn.nuxeo.org/pub/Localizer/trunk Revision: 32986
 Requires:
